@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fenol</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 20px;
+            background-color: #000000;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #777;
+            margin: 0;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: #777;
+            margin: 10px 0 0;
+        }
+
+        .creditos {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 1em;
+            color: #ffffff;
+            opacity: 0.8;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .menu button, .back-btn, .video-btn {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #222;
+            color: #fff;
+            border: 1px solid #555;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .menu button:hover, .back-btn:hover, .video-btn:hover {
+            background-color: #444;
+        }
+
+        .content-box {
+            background-color: #1a1a1a;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+            text-align: center;
+            display: none;
+        }
+
+        .content-box h3 {
+            margin-top: 0;
+            font-size: 1.8em;
+            color: #ffffff;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+        }
+
+        .content-box p {
+            font-size: 1.1em;
+            color: #dddddd;
+            margin-top: 15px;
+            white-space: pre-line;
+            text-align: justify;
+        }
+
+        .content-box .subtitle {
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+        }
+
+        .video-btn {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <h1>Fenol</h1>
+        <h2>Antissépticos e cosméticos</h2>
+    </header>
+
+    <!-- Menu de botões -->
+    <div class="menu" id="menu">
+        <button onclick="mostrarConteudo('objetivo')">Objetivo</button>
+        <button onclick="mostrarConteudo('exemplos')">Exemplos</button>
+    </div>
+
+    <!-- Conteúdo dinâmico -->
+    <div class="content-box" id="contentBox">
+        <!-- Título principal da seção -->
+        <h3 id="contentTitle"></h3>
+        <!-- Subtítulo explicativo do objetivo -->
+        <p id="contentSubtitle" class="subtitle"></p>
+        <!-- Parágrafo detalhado -->
+        <p id="contentText"></p>
+        <!-- Botão de vídeo -->
+        <a id="videoLink" class="video-btn" href="#" target="_blank">▶ Assistir Vídeo</a>
+        <!-- Botão de voltar -->
+        <button class="back-btn" onclick="voltarMenu()">Voltar ao Menu</button>
+    </div>
+
+    <!-- Créditos -->
+    <div class="creditos">
+        Discentes: Delciomar & Jamerson
+    </div>
+
+    <!-- Script -->
+    <script>
+        function mostrarConteudo(tipo) {
+            const menu = document.getElementById('menu');
+            const contentBox = document.getElementById('contentBox');
+            const title = document.getElementById('contentTitle');
+            const subtitle = document.getElementById('contentSubtitle');
+            const text = document.getElementById('contentText');
+            const videoLink = document.getElementById('videoLink');
+
+            if (tipo === 'objetivo') {
+                title.textContent = 'Objetivo';
+                subtitle.textContent = 'Apresentar o uso do fenol como agente antisséptico e em cosméticos, destacando suas aplicações e cuidados.';
+                text.textContent = 'O fenol, também chamado de ácido carbólico, foi historicamente usado como antisséptico, mas hoje tem aplicações principalmente na dermatologia e em cosméticos. É utilizado em peelings químicos para renovação da pele, auxiliando no tratamento de manchas, cicatrizes e sinais de envelhecimento, além de atuar em alguns produtos como agente antimicrobiano ou conservante. Contudo, por ser uma substância tóxica e corrosiva, seu uso requer baixas concentrações e deve sempre ser realizado com acompanhamento profissional, garantindo eficácia sem riscos à saúde.';
+                videoLink.href = "https://youtu.be/6wzx4FOgOwA?si=lZ6LVJ7o-DXedjGB";
+                videoLink.style.display = "inline-block";
+            } else if (tipo === 'exemplos') {
+                title.textContent = 'Exemplos';
+                subtitle.textContent = '';
+                text.textContent = '• Fenol em peelings químicos\n• Antissépticos bucais\n• Produtos dermatológicos com ação antimicrobiana.';
+                videoLink.style.display = "none";
+            }
+
+            menu.style.display = 'none';
+            contentBox.style.display = 'block';
+        }
+
+        function voltarMenu() {
+            document.getElementById('menu').style.display = 'flex';
+            document.getElementById('contentBox').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
