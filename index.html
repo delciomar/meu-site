@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fenol</title>
+  <style>
+    :root {
+      --bg: #000;
+      --panel: #1a1a1a;
+      --text: #fff;
+      --muted: #777;
+      --border: #444;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    .cover {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #0b0b0b, #101010 50%, #0b0b0b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 9999;
+      cursor: pointer;
+      transition: opacity .5s ease;
+    }
+
+    .cover.fade-out { opacity: 0; pointer-events: none; }
+    .cover-content { max-width: 90%; padding: 24px; }
+    .cover h1 { font-size: clamp(42px, 8vw, 96px); color: #e5e5e5; margin: 0; }
+    .cover h2 { font-size: clamp(16px, 3.2vw, 28px); color: var(--muted); margin: 10px 0 20px; }
+    .cover-credits { font-size: clamp(14px, 2.6vw, 18px); opacity: 0.9; }
+    .cover-hint {
+      margin-top: 28px;
+      font-size: clamp(14px, 2.8vw, 18px);
+      opacity: .8;
+      border: 1px solid #2e2e2e;
+      padding: 10px 16px;
+      border-radius: 999px;
+      display: inline-block;
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: translateY(0); opacity: .85; }
+      50% { transform: translateY(-2px); opacity: 1; }
+      100% { transform: translateY(0); opacity: .85; }
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 0 20px;
+    }
+
+    h1 { font-size: 3em; color: var(--muted); margin: 0; }
+    h2 { font-size: 1.5em; color: var(--muted); margin: 10px 0 0; }
+
+    .creditos {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      font-size: 1em;
+      opacity: 0.8;
+    }
+
+    .menu {
+      display: none;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .menu button {
+      background: linear-gradient(145deg, #222, #1c1c1c);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 14px 26px;
+      font-size: 1.1em;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
+      min-width: 160px;
+      flex: 1 1 calc(33.333% - 40px);
+      text-align: center;
+    }
+
+    .menu button:hover {
+      background: linear-gradient(145deg, #2c2c2c, #1a1a1a);
+      transform: scale(1.05);
+      box-shadow: 0 6px 14px rgba(255,255,255,0.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content-box {
+      background-color: var(--panel);
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 30px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+      text-align: center;
+      display: none;
+      white-space: pre-line;
+    }
+
+    .content-box h3 {
+      margin-top: 0;
+      font-size: 1.8em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+
+    .content-box p {
+      font-size: 1.1em;
+      margin-top: 15px;
+      white-space: pre-line;
+      text-align: left;
+    }
+
+    .content-box .subtitle {
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    iframe {
+      margin-top: 20px;
+      border-radius: 10px;
+      width: 100%;
+      height: 350px;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #222;
+      color: #fff;
+      border: 1px solid #555;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .back-btn:hover { background-color: #444; }
+  </style>
+</head>
+<body>
+
+  <!-- CAPA -->
+  <div id="cover" class="cover" tabindex="0" onclick="entrarSite()" onkeydown="if(event.key==='Enter'||event.key===' ') entrarSite()">
+    <div class="cover-content">
+      <h1>Fenol</h1>
+      <h2>Antissépticos e Cosméticos</h2>
+      <div class="cover-credits">Discentes: Delciomar & Jamerson</div>
+      <div class="cover-hint">Toque ou clique para entrar</div>
+    </div>
+  </div>
+
+  <!-- Cabeçalho -->
+  <header>
+    <h1>Fenol</h1>
+    <h2>Antissépticos e cosméticos</h2>
+  </header>
+
+  <!-- Menu -->
+  <div class="menu" id="menu">
+    <button onclick="mostrarConteudo('introducao')">Introdução</button>
+    <button onclick="mostrarConteudo('objetivo')">Objetivo</button>
+    <button onclick="mostrarConteudo('exemplos')">Exemplos</button>
+    <button onclick="mostrarConteudo('historia')">História do Fenol</button>
+    <button onclick="mostrarConteudo('curiosidades')">Curiosidades</button>
+    <button onclick="mostrarConteudo('impactos')">Impactos Ambientais</button>
+    <button onclick="mostrarConteudo('video')">Vídeo</button>
+    <button onclick="mostrarConteudo('conclusao')">Conclusão</button>
+  </div>
+
+  <!-- Conteúdo -->
+  <div class="content-box" id="contentBox">
+    <h3 id="contentTitle"></h3>
+    <p id="contentSubtitle" class="subtitle"></p>
+    <p id="contentText"></p>
+    <div id="videoEmbed"></div>
+    <div id="imageContainer"></div>
+    <button class="back-btn" onclick="voltarMenu()">Voltar ao Menu</button>
+  </div>
+
+  <!-- Créditos -->
+  <div class="creditos">Discentes: Delciomar & Jamerson</div>
+
+  <!-- Script -->
+  <script>
+    function entrarSite() {
+      const cover = document.getElementById('cover');
+      const menu = document.getElementById('menu');
+      cover.classList.add('fade-out');
+      setTimeout(() => {
+        cover.style.display = 'none';
+        menu.style.display = 'flex';
+        document.body.style.overflow = 'auto';
+      }, 480);
+    }
+
+    function mostrarConteudo(tipo) {
+      const menu = document.getElementById('menu');
+      const contentBox = document.getElementById('contentBox');
+      const title = document.getElementById('contentTitle');
+      const subtitle = document.getElementById('contentSubtitle');
+      const text = document.getElementById('contentText');
+      const videoEmbed = document.getElementById('videoEmbed');
+      const imageContainer = document.getElementById('imageContainer');
+
+      videoEmbed.innerHTML = "";
+      imageContainer.innerHTML = "";
+      subtitle.textContent = "";
+      text.textContent = "";
+
+      if (tipo === 'historia') {
+        title.textContent = 'História do Fenol';
+        text.textContent =
+          '- Fenol foi descoberto em 1834 por Friedlieb Runge.\n' +
+          '- Inicialmente chamado de ácido carbólico.\n' +
+          '- Joseph Lister usou fenol como antisséptico em 1865.\n' +
+          '- Fenol tornou-se base da baquelite, o primeiro plástico.';
+      } else if (tipo === 'introducao') {
+        title.textContent = 'Introdução';
+        text.textContent =
+          '- Composto orgânico aromático\n' +
+          '- Ação antimicrobiana\n' +
+          '- Uso médico e estético\n' +
+          '- Tóxico em altas doses';
+      } else if (tipo === 'objetivo') {
+        title.textContent = 'Objetivo';
+        text.textContent =
+          '- Analisar o uso do fenol em produtos de higiene e estética\n' +
+          '- Destacar seus benefícios, como ação antimicrobiana e cosmética\n' +
+          '- Apontar riscos à saúde associados ao seu uso\n' +
+          '- Reforçar a importância do uso seguro e supervisionado';
+      } else if (tipo === 'exemplos') {
+        title.textContent = 'Exemplos';
+        text.textContent =
+          'Desinfetantes:\n' +
+          '- Fenol é usado em soluções desinfetantes hospitalares\n' +
+          '- Atua eliminando micro-organismos em ambientes clínicos\n\n' +
+          'Peelings químicos:\n' +
+          '- Utilizado em peelings profundos para rejuvenescimento facial\n' +
+          '- Remove camadas da pele para tratar manchas e rugas severas';
+      } else if (tipo === 'curiosidades') {
+        title.textContent = 'Curiosidades';
+        text.textContent =
+          '- Isolado em 1834\n' +
+          '- Usado na baquelite (1907)\n' +
+          '- Presente em resinas e tintas\n' +
+          '- Fenóis em café, vinho e chá\n' +
+          '- Produzido por plantas\n' +
+          '- Base para corantes sintéticos';
+      } else if (tipo === 'impactos') {
+        title.textContent = 'Impactos Ambientais';
+        text.textContent =
+          '- Alta solubilidade em água\n' +
+          '- Contamina rios e lençóis freáticos\n' +
+          '- Tóxico para vida aquática\n' +
+          '- Gera subprodutos nocivos\n' +
+          '- Requer tratamento adequado';
+      } else if (tipo === 'video') {
+        title.textContent = 'Vídeo';
+        subtitle.textContent = 'Exemplo prático sobre o fenol:';
+        videoEmbed.innerHTML = '<iframe src="https://www.youtube.com/embed/u09mBKHMHWI" frameborder="0" allowfullscreen></iframe>';
+      } else if (tipo === 'conclusao') {
+        title.textContent = 'Conclusão';
+        text.textContent =
+          '- Útil em saúde e estética\n' +
+          '- Tóxico em excesso\n' +
+          '- Uso deve ser controlado\n' +
+          '- Necessita supervisão profissional';
+      }
+
+      menu.style.display = 'none';
+      contentBox.style.display = 'block';
+    }
+
+    function voltarMenu() {
+      document.getElementById('menu').style.display = 'flex';
+      document.getElementById('contentBox').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
